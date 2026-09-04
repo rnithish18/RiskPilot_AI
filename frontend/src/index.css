@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens ─── */
+:root {
+  --bg-base: #080D18;
+  --bg-primary: #0B1120;
+  --bg-secondary: #0F172A;
+  --surface: #111827;
+  --surface-raised: #151E30;
+  --border-subtle: #1E2D42;
+  --border: #243047;
+  --border-strong: #2A3650;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --blue: #3B82F6;
+  --risk-low: #22C55E;
+  --risk-medium: #F59E0B;
+  --risk-high: #F97316;
+  --risk-critical: #EF4444;
+}
+
+/* ─── Base ─── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: 14px; }
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+
+/* ─── Transitions ─── */
+a, button, input, select, textarea {
+  transition: background-color 150ms ease, border-color 150ms ease,
+    color 150ms ease, opacity 150ms ease, box-shadow 150ms ease;
+}
+
+/* ─── Panel (replaces glass-card) ─── */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+}
+
+.panel-raised {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+/* Keep glass-card for any remaining references, but style it properly */
+.glass-card {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+}
+
+/* ─── Typography Utilities ─── */
+.text-heading { font-size: 22px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.3px; }
+.text-subheading { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+.text-section { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+.text-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.text-meta { font-size: 11px; color: var(--text-muted); }
+.text-mono { font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; }
+
+/* ─── Table ─── */
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th {
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: left;
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 11px 14px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: middle;
+}
+.data-table tbody tr {
+  transition: background-color 120ms ease;
+  cursor: pointer;
+}
+.data-table tbody tr:hover { background-color: rgba(255,255,255,0.025); }
+.data-table tbody tr:last-child td { border-bottom: none; }
+
+/* ─── Forms ─── */
+.field-input {
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--text-primary);
+  outline: none;
+  font-family: inherit;
+}
+.field-input::placeholder { color: var(--text-disabled); }
+.field-input:focus {
+  border-color: rgba(59, 130, 246, 0.5);
+  background: var(--bg-secondary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+.field-input:hover:not(:focus) { border-color: var(--border-strong); }
+select.field-input { cursor: pointer; }
+
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 6px; border-radius: 6px; font-size: 13px; font-weight: 500;
+  padding: 7px 14px; cursor: pointer; border: 1px solid transparent;
+  white-space: nowrap; font-family: inherit;
+  transition: background-color 150ms ease, border-color 150ms ease, opacity 150ms ease;
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary { background: #3B82F6; color: #fff; border-color: #3B82F6; }
+.btn-primary:hover:not(:disabled) { background: #2563EB; border-color: #2563EB; }
+.btn-secondary { background: transparent; color: var(--text-secondary); border-color: var(--border); }
+.btn-secondary:hover:not(:disabled) { background: rgba(255,255,255,0.04); color: var(--text-primary); }
+.btn-danger { background: rgba(239,68,68,0.1); color: #F87171; border-color: rgba(239,68,68,0.2); }
+.btn-danger:hover:not(:disabled) { background: rgba(239,68,68,0.15); }
+.btn-sm { padding: 5px 10px; font-size: 12px; border-radius: 5px; }
+.btn-xs { padding: 3px 8px; font-size: 11px; border-radius: 4px; }
+
+/* ─── Risk & Status Badges ─── */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 4px;
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.badge-low { background: rgba(34,197,94,0.1); color: #4ADE80; }
+.badge-medium { background: rgba(245,158,11,0.1); color: #FCD34D; }
+.badge-high { background: rgba(249,115,22,0.1); color: #FB923C; }
+.badge-critical { background: rgba(239,68,68,0.1); color: #F87171; }
+.badge-open { background: rgba(59,130,246,0.1); color: #60A5FA; }
+.badge-review { background: rgba(245,158,11,0.1); color: #FCD34D; }
+.badge-approved { background: rgba(34,197,94,0.1); color: #4ADE80; }
+.badge-escalated { background: rgba(239,68,68,0.1); color: #F87171; }
+.badge-resolved { background: rgba(100,116,139,0.1); color: #94A3B8; }
+
+/* ─── Skeleton ─── */
+@keyframes shimmer {
+  0% { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-raised) 50%, var(--surface) 75%);
+  background-size: 1200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* ─── Navigation active ─── */
+.nav-active {
+  background: rgba(59,130,246,0.08);
+  color: #60A5FA;
+  border-left-color: #3B82F6 !important;
+}
+
+/* ─── Risk bar ─── */
+.risk-bar { height: 4px; border-radius: 2px; background: var(--border-subtle); overflow: hidden; }
+.risk-bar-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+
+/* ─── Divider ─── */
+.divider { height: 1px; background: var(--border-subtle); margin: 16px 0; }
+
+/* ─── Tooltip styles ─── */
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: var(--surface-raised) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+}
+
+/* ─── Focus visible ─── */
+:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+}
+
+/* ─── Remove number input arrows ─── */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+input[type=number] { -moz-appearance: textfield; }

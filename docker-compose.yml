@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: riskpilot-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount the database file so it persists across container restarts
+      - ./backend/riskpilot.db:/app/riskpilot.db
+    environment:
+      - DATABASE_URL=sqlite:///./riskpilot.db
+      - DEBUG=false
+    restart: unless-stopped
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: riskpilot-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
