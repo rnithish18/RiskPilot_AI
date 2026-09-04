@@ -2,7 +2,8 @@ import axios from 'axios';
 import type { Assessment, DashboardStats, AuditLog, AnalyticsData } from '../types';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  baseURL: (import.meta as any).env?.VITE_API_URL || '/api',
   headers: { 'Content-Type': 'application/json' },
 });
 
